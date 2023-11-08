@@ -1,5 +1,5 @@
 body {
-    background-color: rgb(16 16 16)!important;
+    background-color: rgb(16 16 16) !important;
 }
 
 .logo-container {
@@ -16,10 +16,10 @@ body {
 
 @media (max-width: 453px) {
     .logo {
-      width: 95%;
-      height: 80px;
+        width: 95%;
+        height: 80px;
     }
-  }
+}
 
 @media (max-width: 453px) {
     .logo-container {
@@ -32,11 +32,24 @@ body {
     width: 30px;
 }
 
-.navbar-custom {
-    background-color: rgb(40 40 40);
+.navbar {
+    background-color: rgb(40 40 40) !important;
 }
 
-/* .sign-up-log-in {
-    display: flex;
-    flex-direction: row;
-} */
+.section-signup {
+    background-color: rgb(16 16 16);
+}
+
+.style1 {
+    border-top-left-radius: .3rem;
+    border-top-right-radius: .3rem;
+}
+
+.signup-image {
+    background-color: black;
+}
+
+.signup-card-body {
+    background-color: rgb(16 16 16);
+    color: white!important;
+}
