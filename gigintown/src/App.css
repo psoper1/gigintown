@@ -1,0 +1,27 @@
+body {
+    background-color: black!important;
+}
+
+.logo-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 45vh;
+    background-image: url('./imgs/local-show.jpeg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+@media (max-width: 453px) {
+    .logo {
+      width: 95%;
+      height: 80px;
+    }
+  }
+
+@media (max-width: 453px) {
+    .logo-container {
+        height: 20vh;
+    }
+}
