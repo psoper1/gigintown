@@ -25,3 +25,12 @@ body {
         height: 20vh;
     }
 }
+
+.gigIcon {
+    height: 30px;
+    width: 30px;
+}
+
+.navbar-custom {
+    background-color: #49beb6a4;
+}
