@@ -1,41 +1,26 @@
+import { NavLink } from 'react-router-dom';
 import gigIcon from '../imgs/gigintown-just-icon.png';
 
 function Nav() {
     return (
         <>
-            <nav className="navbar navbar-expand-lg navbar-custom">
+            <nav className="navbar navbar-expand-lg navbar-light">
                 <div className="container-fluid">
-                    <img className='gigIcon' src={gigIcon} alt='gigIconIcon'/>
-                    <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <NavLink to='/' className='nav-link'>
+                        <img className='gigIcon' src={gigIcon} alt='gigIconIcon' />
+                    </NavLink>
+                    <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                         <span className="navbar-toggler-icon"></span>
                     </button>
-                    <div className="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+                    <div className="collapse navbar-collapse justify-content-end" id="navbarNav">
+                        <ul className="navbar-nav">
                             <li className="nav-item">
-                                <a className="nav-link active" aria-current="page" href="#">Placeholder</a>
+                                <NavLink to="/sign-up" className="nav-link text-white">Sign Up</NavLink>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link" href="#">Placeholder</a>
-                            </li>
-                            <li className="nav-item dropdown">
-                                <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    Dropdown Placeholder
-                                </a>
-                                <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <li><a className="dropdown-item" href="#">Placeholder</a></li>
-                                    <li><a className="dropdown-item" href="#">Placeholder</a></li>
-                                    <li><hr className="dropdown-divider" /></li>
-                                    <li><a className="dropdown-item" href="#">Placeholder</a></li>
-                                </ul>
-                            </li>
-                            <li className="nav-item">
-                                <a className="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled Placeholder</a>
+                                <NavLink to="/login" className="nav-link text-white">Log In</NavLink>
                             </li>
                         </ul>
-                        <form className="d-flex">
-                            <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
-                            <button className="btn btn-outline-success" type="submit">Search</button>
-                        </form>
                     </div>
                 </div>
             </nav>

@@ -1,16 +1,17 @@
 import './App.css';
-import Logo from './Components/Logo';
-import Nav from './Components/Nav';
+import { HashRouter as Router, Routes, Route } from "react-router-dom";
+import HomePage from './Components/HomePage';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
 
 function App() {
   return (
     <>
-    <div className='logo-container'>
-      <Logo />
-    </div>
-    <Nav />
+      <Router basename='/'>
+        <Routes>
+        <Route path='/' element={<HomePage />} />
+        </Routes>
+      </Router>
     </>
   );
 }
