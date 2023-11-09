@@ -1,55 +1,70 @@
 body {
-    background-color: rgb(16 16 16) !important;
+  background-color: rgb(16 16 16) !important;
 }
 
 .logo-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 45vh;
-    background-image: url('./imgs/local-show.jpeg');
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
-    border-radius: 3%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 45vh;
+  background-image: url("./imgs/local-show.jpeg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  border-radius: 3%;
 }
 
 @media (max-width: 453px) {
-    .logo {
-        width: 95%;
-        height: 80px;
-    }
+  .logo {
+    width: 95%;
+    height: 80px;
+  }
 }
 
 @media (max-width: 453px) {
-    .logo-container {
-        height: 20vh;
-    }
+  .logo-container {
+    height: 20vh;
+  }
 }
 
 .gigIcon {
-    height: 30px;
-    width: 30px;
+  height: 30px;
+  width: 30px;
 }
 
 .navbar {
-    background-color: rgb(40 40 40) !important;
+  background-color: rgb(40 40 40) !important;
 }
 
 .section-signup {
-    background-color: rgb(16 16 16);
+  background-color: rgb(16 16 16);
 }
 
 .style1 {
-    border-top-left-radius: .3rem;
-    border-top-right-radius: .3rem;
+  border-top-left-radius: 0.3rem;
+  border-top-right-radius: 0.3rem;
 }
 
 .signup-image {
-    background-color: black;
+  background-color: black;
 }
 
 .signup-card-body {
-    background-color: rgb(16 16 16);
-    color: white!important;
+  background-color: rgb(16 16 16);
+  color: white !important;
+}
+
+.dropdown-options-venue {
+  display: flex;
+  justify-content: center;
+}
+
+.dropdown-box-venue {
+  width: 35%;
+}
+
+.dropdown-question {
+  height: 55px;
+  background-color: #101010;
+  padding-top: 1%;
 }
