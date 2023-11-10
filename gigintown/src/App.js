@@ -23,7 +23,7 @@ function App() {
     <>
       <Router basename="/">
         <Routes>
-          <Route path="/" element={<HomePage />} />
+          <Route path="/" element={<HomePage user={user} />} />
           <Route
             path="/sign-up"
             element={

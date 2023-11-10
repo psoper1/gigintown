@@ -1,7 +1,7 @@
 import { NavLink } from "react-router-dom";
 import gigIcon from "../imgs/gigintown-just-icon.png";
 
-function Nav() {
+function Nav({user}) {
   return (
     <>
       <nav className="navbar navbar-expand-lg navbar-light">
