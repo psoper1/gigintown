@@ -1,78 +1,78 @@
-import axios from 'axios';
-import { useState } from 'react';
+import axios from "axios";
+import { useState } from "react";
 
 function EventForm() {
+  const [formData, setFormData] = useState({
+    title: "",
+    flyer: "",
+    description: "",
+    artists: "",
+    date: "",
+    time: "",
+    address: "",
+    city: "",
+    state: "",
+    zipCode: "",
+    venue: "",
+    price: "",
+    isAllAges: false,
+  });
 
-    const [formData, setFormData] = useState({
-        title: "",
-        flyer: "",
-        description: "",
-        artists: "",
-        date: "",
-        time: "",
-        address: "",
-        city: "",
-        state: "",
-        zipCode: "",
-        venue: "",
-        price: "",
-        isAllAges: false,
-      });
-    
-      const handleInputChange = (e) => {
-        const { name, value, type, checked } = e.target;
-        setFormData((prevData) => ({
-          ...prevData,
-          [name]: type === "checkbox" ? checked : value,
-        }));
+  const handleInputChange = (e) => {
+    const { name, value, type, checked } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: type === "checkbox" ? checked : value,
+    }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const requestData = {
+        Title: formData.title,
+        Flyer: formData.flyer,
+        Description: formData.description,
+        Artists: formData.artists,
+        Date: formData.date,
+        Time: formData.time,
+        Address: formData.address,
+        City: formData.city,
+        State: formData.state,
+        ZipCode: formData.zipCode,
+        Venue: formData.venue,
+        Price: formData.price,
+        IsAllAges: formData.isAllAges,
       };
-      
-      const handleSubmit = async (e) => {
-        e.preventDefault();
-      
-        try {
-          const requestData = {
-            Title: formData.title,
-            Flyer: formData.flyer,
-            Description: formData.description,
-            Artists: formData.artists,
-            Date: formData.date,
-            Time: formData.time,
-            Address: formData.address,
-            City: formData.city,
-            State: formData.state,
-            ZipCode: formData.zipCode,
-            Venue: formData.venue,
-            Price: formData.price,
-            IsAllAges: formData.isAllAges,
-          };
-      
-          const options = {
-            url: 'http://localhost:8000/api/events/',
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            data: requestData,
-          };
-      
-          const response = await axios(options);
-      
-          console.log('Event submitted successfully!', response.data);
-        } catch (error) {
-          console.error('Error submitting event:', error);
-        }
-        console.log(formData);
+      console.log(requestData)
+
+      const options = {
+        url: "http://localhost:8000/api/events/",
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        data: requestData,
       };
 
-    return (
-        <>
+      const response = await axios(options);
+
+      console.log("Event submitted successfully!", response.data);
+    } catch (error) {
+      console.error("Error submitting event:", error);
+    }
+    console.log(formData);
+  };
+
+  return (
+    <>
       <div className="container">
         <div className="row">
           <div className="col-md-6">
             <form onSubmit={handleSubmit}>
               <div className="mb-3">
-                <label className='text-white'>Title:</label>
+                <label className="text-white">Title:</label>
                 <input
                   type="text"
                   name="title"
@@ -84,7 +84,7 @@ function EventForm() {
               </div>
 
               <div className="mb-3">
-                <label className='text-white'>Flyer:</label>
+                <label className="text-white">Flyer:</label>
                 <input
                   type="text"
                   name="flyer"
@@ -95,7 +95,7 @@ function EventForm() {
               </div>
 
               <div className="mb-3">
-                <label className='text-white'>Description:</label>
+                <label className="text-white">Description:</label>
                 <textarea
                   name="description"
                   value={formData.description}
@@ -106,7 +106,7 @@ function EventForm() {
               </div>
 
               <div className="mb-3">
-                <label className='text-white'>Artists:</label>
+                <label className="text-white">Artists:</label>
                 <input
                   type="text"
                   name="artists"
@@ -117,7 +117,7 @@ function EventForm() {
               </div>
 
               <div className="mb-3">
-                <label className='text-white'>Date (mm/dd/yyyy):</label>
+                <label className="text-white">Date (mm/dd/yyyy):</label>
                 <input
                   type="date"
                   name="date"
@@ -129,7 +129,7 @@ function EventForm() {
               </div>
 
               <div className="mb-3">
-                <label className='text-white'>Time:</label>
+                <label className="text-white">Time:</label>
                 <input
                   type="time"
                   name="time"
@@ -141,7 +141,9 @@ function EventForm() {
               </div>
 
               <div className="mb-3">
-                <label className='text-white'>Check this box if this if all ages are welcome: </label>
+                <label className="text-white">
+                  Check this box if this if all ages are welcome:{" "}
+                </label>
                 <input
                   type="checkbox"
                   name="isAllAges"
@@ -156,7 +158,7 @@ function EventForm() {
           <div className="col-md-6">
             <form onSubmit={handleSubmit}>
               <div className="mb-3">
-                <label className='text-white'>Address:</label>
+                <label className="text-white">Address:</label>
                 <input
                   type="text"
                   name="address"
@@ -167,7 +169,7 @@ function EventForm() {
               </div>
 
               <div className="mb-3">
-                <label className='text-white'>City:</label>
+                <label className="text-white">City:</label>
                 <input
                   type="text"
                   name="city"
@@ -178,7 +180,7 @@ function EventForm() {
               </div>
 
               <div className="mb-3">
-                <label className='text-white'>State:</label>
+                <label className="text-white">State:</label>
                 <input
                   type="text"
                   name="state"
@@ -189,7 +191,7 @@ function EventForm() {
               </div>
 
               <div className="mb-3">
-                <label className='text-white'>ZipCode:</label>
+                <label className="text-white">ZipCode:</label>
                 <input
                   type="text"
                   name="zipCode"
@@ -200,7 +202,7 @@ function EventForm() {
               </div>
 
               <div className="mb-3">
-                <label className='text-white'>Venue:</label>
+                <label className="text-white">Venue:</label>
                 <input
                   type="text"
                   name="venue"
@@ -211,7 +213,7 @@ function EventForm() {
               </div>
 
               <div className="mb-3">
-                <label className='text-white'>Price:</label>
+                <label className="text-white">Price:</label>
                 <input
                   type="number"
                   name="price"
@@ -222,14 +224,16 @@ function EventForm() {
               </div>
 
               <div className="mb-3">
-                <button type="submit" className="btn btn-primary">Submit</button>
+                <button type="submit" className="btn btn-primary">
+                  Submit
+                </button>
               </div>
             </form>
           </div>
         </div>
       </div>
-        </>
-    )
+    </>
+  );
 }
 
 export default EventForm;
