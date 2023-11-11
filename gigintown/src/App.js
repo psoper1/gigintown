@@ -7,6 +7,7 @@ import Signup from "./Components/Signup";
 import VenueVerification from "./Components/VenueVerification";
 import Login from "./Components/Login";
 import { useState } from "react";
+import EventForm from "./Components/EventForm";
 
 function App() {
   const [email, setEmail] = useState("");
@@ -39,6 +40,7 @@ function App() {
           />
           <Route path="/login" element={<Login />} />
           <Route path="/venue-verification" element={<VenueVerification />} />
+          <Route path="/event-form" element={<EventForm user={user} />} />
         </Routes>
       </Router>
     </>

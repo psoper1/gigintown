@@ -39,7 +39,7 @@ function Signup({ user, setUser }) {
                 <img
                   className="signup-image"
                   src={GigInTownLogo}
-                  alt="Sample photo"
+                  alt="Sample"
                 />
                 <div className="dropdown-question">
                   <div className="text-center text-white">

@@ -1,7 +1,8 @@
 import axios from "axios";
 import { useState } from "react";
+import Nav from "./Nav";
 
-function EventForm() {
+function EventForm({user}) {
   const [formData, setFormData] = useState({
     title: "",
     flyer: "",
@@ -67,6 +68,7 @@ function EventForm() {
 
   return (
     <>
+    <Nav user={user} />
       <div className="container">
         <div className="row">
           <div className="col-md-6">
