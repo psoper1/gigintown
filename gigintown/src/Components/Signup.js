@@ -1,30 +1,66 @@
 import { useState } from "react";
 import Nav from "./Nav";
 import GigInTownLogo from "../imgs/gigintown test3.png";
-import { Link } from "react-router-dom";
+import GeneralAccount from "./GeneralAccount";
 
 function Signup({ user, setUser }) {
+  const [accountType, setAccountType] = useState("");
+  const [formData, setFormData] = useState({
+    artistName: "",
+    firstName: "",
+    lastName: "",
+    phoneNumber: "",
+    email: "",
+  });
 
-  const [isVenue, setIsVenue] = useState(null);
-  const handleChange = (key, value) => {
-    setUser({
-      ...user,
-      [key]: value,
-    });
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await fetch("http://localhost:8000/api/api/send-email", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (response.ok) {
+        console.log("Email sent successfully.");
+        // Reset the form or navigate to another page
+        setFormData({
+          artistName: "",
+          firstName: "",
+          lastName: "",
+          phoneNumber: "",
+          email: "",
+        });
+      } else {
+        console.error("Email sending failed.");
+      }
+    } catch (error) {
+      console.error("Error sending email:", error);
+    }
   };
 
-  const handleRegister = () => {
-    console.log("Registered!");
-    console.log(isVenue);
-    console.log(user);
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
   };
 
   const handleDropdownChange = (event) => {
     const selectedValue = event.target.value;
-    if (selectedValue === "2") {
-      setIsVenue(true);
-    } else {
-      setIsVenue(false);
+    if (selectedValue === "Artist") {
+      setAccountType("Artist");
+    } else if (selectedValue === "Venue") {
+      setAccountType("Venue");
+    } else if (selectedValue === "Promoter") {
+      setAccountType("Promoter");
+    } else if (selectedValue === "General User") {
+      setAccountType("General User");
     }
   };
 
@@ -43,7 +79,7 @@ function Signup({ user, setUser }) {
                 />
                 <div className="dropdown-question">
                   <div className="text-center text-white">
-                    Are you representing a venue?
+                    Please choose the type of account you would like to create
                   </div>
                   <div className="mb-4 dropdown-options-venue">
                     <select
@@ -51,110 +87,78 @@ function Signup({ user, setUser }) {
                       onChange={handleDropdownChange}
                     >
                       <option value=""></option>
-                      <option value="2">Yes</option>
-                      <option value="3">No</option>
+                      <option value="Artist">Artist</option>
+                      <option value="Venue">Venue</option>
+                      <option value="Promoter">Promoter</option>
+                      <option value="General User">General User</option>
                     </select>
                   </div>
                 </div>
-                {isVenue ? (
-                  <div
-                    style={{ backgroundColor: "#101010" }}
-                    className="text-center text-white"
-                  >
-                    So that the requests to represent a venue is genuine, please
-                    follow <Link to="/venue-verification"> THIS LINK </Link>
-                    to submit a Venue Verification Form
-                  </div>
-                ) : (
-                  <div className="card-body signup-card-body p-4 p-md-5">
-                    <h3 className="mb-4 pb-2 pb-md-0 mb-md-5 px-md-2 text-center">
-                      Registration Info
-                    </h3>
-                    <form className="px-md-2">
-                      <div className="mb-4">
-                        <input
-                          type="text"
-                          id="first_name"
-                          className="form-control form-control-lg inputField"
-                          onChange={(e) =>
-                            handleChange("firstName", e.target.value)
-                          }
-                          placeholder="First Name"
-                        />
-                        <label
-                          className="form-label"
-                          htmlFor="firstName"
-                        ></label>
-                      </div>
-
-                      <div className="mb-4">
-                        <input
-                          type="text"
-                          id="last_name"
-                          className="form-control form-control-lg inputField"
-                          onChange={(e) =>
-                            handleChange("lastName", e.target.value)
-                          }
-                          placeholder="Last Name"
-                        />
-                        <label
-                          className="form-label"
-                          htmlFor="lastName"
-                        ></label>
-                      </div>
-
-                      <div className="mb-4">
-                        <input
-                          type="email"
-                          id="email"
-                          className="form-control form-control-lg inputField"
-                          onChange={(e) =>
-                            handleChange("email", e.target.value)
-                          }
-                          placeholder="Email Address"
-                        />
-                        <label className="form-label" htmlFor="email"></label>
-                      </div>
-
-                      <div className="mb-4">
-                        <input
-                          type="password"
-                          id="password"
-                          className="form-control form-control-lg inputField"
-                          onChange={(e) =>
-                            handleChange("password", e.target.value)
-                          }
-                          placeholder="Password"
-                        />
-                        <label
-                          className="form-label"
-                          htmlFor="form2Example28"
-                        ></label>
-                      </div>
-                      <div className="mb-4">
-                        <input
-                          type="password"
-                          id="passConf"
-                          className="form-control form-control-lg inputField"
-                          onChange={(e) =>
-                            handleChange("passwordConf", e.target.value)
-                          }
-                          placeholder="Confirm Password"
-                        />
-                        <label
-                          className="form-label"
-                          htmlFor="form2Example28"
-                        ></label>
-                      </div>
-                      <button
-                        type="submit"
-                        onClick={handleRegister}
-                        className="btn btn-success btn-lg mb-1"
-                      >
-                        Submit
-                      </button>
+                {(accountType === "Artist" ||
+                  accountType === "Venue" ||
+                  accountType === "Promoter") && (
+                  <>
+                    <div>
+                      {accountType} accounts require additional verification.
+                      This is to keep any user from creating accounts for your
+                      business or brand.
+                    </div>
+                    <p>
+                      Please submit the form below. For questions regarding how
+                      the verification process works and how long it takes,
+                      please use this link.
+                    </p>
+                    <p>For more information on the different types of accounts, see the FAQ</p>
+                    <form onSubmit={handleSubmit}>
+                      <input
+                        type="text"
+                        name="artistName"
+                        placeholder={`${accountType} Name (Subject)`}
+                        value={formData.artistName}
+                        onChange={handleInputChange}
+                      />
+                      <input
+                        type="text"
+                        name="firstName"
+                        placeholder="First Name"
+                        value={formData.firstName}
+                        onChange={handleInputChange}
+                      />
+                      <input
+                        type="text"
+                        name="lastName"
+                        placeholder="Last Name"
+                        value={formData.lastName}
+                        onChange={handleInputChange}
+                      />
+                      <input
+                        type="text"
+                        name="phoneNumber"
+                        placeholder="Phone Number"
+                        value={formData.phoneNumber}
+                        onChange={handleInputChange}
+                      />
+                      <input
+                        type="email"
+                        name="email"
+                        placeholder="Email Address"
+                        value={formData.email}
+                        onChange={handleInputChange}
+                      />
+                      <button type="submit">Send Email</button>
                     </form>
-                  </div>
+                  </>
+                )}
+                {accountType === "General User" && (
+                  <>
+                  <div>Note: General Accounts are unable to Create Events. If you are representing an Artist, Venue or are a Promoter please choose from the dropdown above.</div>
+                  <div>For more information on the different types of accounts, see the FAQ</div>
+                  <GeneralAccount
+                    user={user}
+                    setUser={setUser}
+                    accountType={accountType}
+                  />
+                  </>
                 )}
               </div>
             </div>
