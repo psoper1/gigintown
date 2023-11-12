@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import StateOptions from "./StateOptions";
 
 function EventSearch({ onSearch }) {
   const [city, setCity] = useState("");
@@ -17,12 +18,9 @@ function EventSearch({ onSearch }) {
         onChange={(e) => setCity(e.target.value)}
       />
       <select value={state} onChange={(e) => setState(e.target.value)}>
-        <option value="">Select State</option>
-        <option value="KY">Kentucky</option>
-        <option value="OH">Ohio</option>
-        {/* Add all 50 states here */}
+        <StateOptions />
       </select>
-      <button onClick={handleSearch} disabled={!city}>Search</button>
+      <button onClick={handleSearch} disabled={!city && !state}>Search</button>
     </div>
   );
 }
