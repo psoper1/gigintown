@@ -26,6 +26,9 @@ function Nav({user}) {
           >
             <ul className="navbar-nav">
               <li className="nav-item">
+              <NavLink to="/event-form" className="nav-link text-white">Create Event</NavLink>
+              </li>
+              <li className="nav-item">
                 <NavLink to="/sign-up" className="nav-link text-white">
                   Sign Up
                 </NavLink>

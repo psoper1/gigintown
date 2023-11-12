@@ -10,7 +10,7 @@ function EventSearch({ onSearch }) {
   };
 
   return (
-    <div>
+    <div className="text-center">
       <input
         type="text"
         placeholder="Enter City"

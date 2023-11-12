@@ -108,7 +108,7 @@ function EventForm({user}) {
               </div>
 
               <div className="mb-3">
-                <label className="text-white">Artists:</label>
+                <label className="text-white">Artists: (Separate Artists by Comma)</label>
                 <input
                   type="text"
                   name="artists"

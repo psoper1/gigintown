@@ -68,3 +68,36 @@ body {
   background-color: #101010;
   padding-top: 1%;
 }
+
+.flyer-img {
+  max-width: 35%;
+  max-height: 50%;
+}
+
+.main-card {
+  border-radius: 0%!important;
+}
+
+.card-body {
+  background-color: rgb(16 16 16);
+}
+
+/* Default layout with two cards per row and fixed height */
+.row .col-md-6 {
+  flex-basis: 50%;
+  max-width: 50%;
+  height: 100%; /* Set a fixed height for all cards */
+}
+
+/* Change to one card per row below 1200px and remove fixed height */
+@media (max-width: 1824px) {
+  .row .col-md-6 {
+    flex-basis: 100%;
+    max-width: 100%;
+    height: auto; /* Remove fixed height for one card per row */
+  }
+}
+
+.results-container {
+  max-width: 75%!important;
+}
