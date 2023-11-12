@@ -2,6 +2,7 @@ import { useState } from "react";
 import Nav from "./Nav";
 import GigInTownLogo from "../imgs/gigintown test3.png";
 import GeneralAccount from "./GeneralAccount";
+import { Link } from "react-router-dom";
 
 function Signup({ user, setUser }) {
   const [accountType, setAccountType] = useState("");
@@ -27,7 +28,6 @@ function Signup({ user, setUser }) {
 
       if (response.ok) {
         console.log("Email sent successfully.");
-        // Reset the form or navigate to another page
         setFormData({
           artistName: "",
           firstName: "",
@@ -108,7 +108,7 @@ function Signup({ user, setUser }) {
                       the verification process works and how long it takes,
                       please use this link.
                     </p>
-                    <p>For more information on the different types of accounts, see the FAQ</p>
+                    <p>For more information on the different types of accounts, see the <Link to="/faq">FAQ</Link></p>
                     <form onSubmit={handleSubmit}>
                       <input
                         type="text"
@@ -152,7 +152,7 @@ function Signup({ user, setUser }) {
                 {accountType === "General User" && (
                   <>
                   <div>Note: General Accounts are unable to Create Events. If you are representing an Artist, Venue or are a Promoter please choose from the dropdown above.</div>
-                  <div>For more information on the different types of accounts, see the FAQ</div>
+                  <div>For more information on the different types of accounts, see the <Link to="/faq">FAQ</Link></div>
                   <GeneralAccount
                     user={user}
                     setUser={setUser}
