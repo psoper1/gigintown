@@ -5,7 +5,7 @@ import axios from "axios";
 import EventSearch from "./EventSearch";
 import SearchResults from "./SearchResults";
 
-function HomePage({ user }) {
+function HomePage({ user, setSelectedEvent }) {
   const [searchResults, setSearchResults] = useState([]);
 
   const handleSearch = (city, state) => {
@@ -32,7 +32,7 @@ function HomePage({ user }) {
       </div>
       <EventSearch onSearch={handleSearch} />
       <div className="container results-container">
-        <SearchResults searchResults={searchResults} />
+        <SearchResults searchResults={searchResults} setSearchResults={setSearchResults} setSelectedEvent={setSelectedEvent} />
       </div>
     </>
   );

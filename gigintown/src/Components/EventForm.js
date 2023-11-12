@@ -2,7 +2,7 @@ import axios from "axios";
 import { useState } from "react";
 import Nav from "./Nav";
 
-function EventForm({user}) {
+function EventForm({ user }) {
   const [formData, setFormData] = useState({
     title: "",
     flyer: "",
@@ -17,6 +17,7 @@ function EventForm({user}) {
     venue: "",
     price: "",
     isAllAges: false,
+    link: "",
   });
 
   const handleInputChange = (e) => {
@@ -45,8 +46,8 @@ function EventForm({user}) {
         Venue: formData.venue,
         Price: formData.price,
         IsAllAges: formData.isAllAges,
+        Link: formData.link,
       };
-      console.log(requestData)
 
       const options = {
         url: "http://localhost:8000/api/events/",
@@ -68,7 +69,7 @@ function EventForm({user}) {
 
   return (
     <>
-    <Nav user={user} />
+      <Nav user={user} />
       <div className="container">
         <div className="row">
           <div className="col-md-6">
@@ -84,9 +85,9 @@ function EventForm({user}) {
                   className="form-control"
                 />
               </div>
-
+              {/* This will eventually be a file upload for files less than 25mb and only jpeg, jpeg and png */}
               <div className="mb-3">
-                <label className="text-white">Flyer:</label>
+                <label className="text-white">Flyer URL:</label>
                 <input
                   type="text"
                   name="flyer"
@@ -108,7 +109,9 @@ function EventForm({user}) {
               </div>
 
               <div className="mb-3">
-                <label className="text-white">Artists: (Separate Artists by Comma)</label>
+                <label className="text-white">
+                  Artists (Separate by comma):
+                </label>
                 <input
                   type="text"
                   name="artists"
@@ -143,9 +146,7 @@ function EventForm({user}) {
               </div>
 
               <div className="mb-3">
-                <label className="text-white">
-                  Check this box if this if all ages are welcome:{" "}
-                </label>
+                <label className="text-white">Is All Ages:</label>
                 <input
                   type="checkbox"
                   name="isAllAges"
@@ -220,6 +221,17 @@ function EventForm({user}) {
                   type="number"
                   name="price"
                   value={formData.price}
+                  onChange={handleInputChange}
+                  className="form-control"
+                />
+              </div>
+
+              <div className="mb-3">
+                <label className="text-white">Link:</label>
+                <input
+                  type="text"
+                  name="link"
+                  value={formData.link}
                   onChange={handleInputChange}
                   className="form-control"
                 />
