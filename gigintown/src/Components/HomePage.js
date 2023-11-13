@@ -5,7 +5,7 @@ import axios from "axios";
 import EventSearch from "./EventSearch";
 import SearchResults from "./SearchResults";
 
-function HomePage({ user, setSelectedEvent }) {
+function HomePage({ user, setSelectedEvent, loggedInUser }) {
   const [searchResults, setSearchResults] = useState([]);
 
   const handleSearch = (city, state) => {
@@ -26,7 +26,7 @@ function HomePage({ user, setSelectedEvent }) {
 
   return (
     <>
-      <Nav user={user} />
+      <Nav user={user} loggedInUser={loggedInUser} />
       <div className="logo-container">
         <Logo />
       </div>

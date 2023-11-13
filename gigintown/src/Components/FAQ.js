@@ -4,17 +4,17 @@ function FAQ() {
   return (
     <>
       <Nav />
-      <div class="wrapper bg-white rounded shadow">
-        <div class="h3 text-primary text-center">How can we help you?</div>
-        <div class="d-flex justify-content-center"></div>
+      <div className="wrapper bg-white rounded shadow">
+        <div className="h3 text-primary text-center">How can we help you?</div>
+        <div className="d-flex justify-content-center"></div>
         <div
-          class="accordion accordion-flush border-top border-start border-end"
+          className="accordion accordion-flush border-top border-start border-end"
           id="myAccordion"
         >
-          <div class="accordion-item">
-            <h2 class="accordion-header" id="flush-headingOne">
+          <div className="accordion-item">
+            <h2 className="accordion-header" id="flush-headingOne">
               <button
-                class="accordion-button collapsed border-0"
+                className="accordion-button collapsed border-0"
                 type="button"
                 data-bs-toggle="collapse"
                 data-bs-target="#flush-collapseOne"
@@ -26,13 +26,13 @@ function FAQ() {
             </h2>
             <div
               id="flush-collapseOne"
-              class="accordion-collapse collapse border-0"
+              className="accordion-collapse collapse border-0"
               aria-labelledby="flush-headingOne"
               data-bs-parent="#myAccordion"
             >
-              <div class="accordion-body p-0">
+              <div className="accordion-body p-0">
                 {" "}
-                <ul class="list-unstyled m-0">
+                <ul className="list-unstyled m-0">
                   <li>
                     <p> There are 4 kinds of accounts.</p>
                     <ul>
@@ -70,10 +70,10 @@ function FAQ() {
               </div>
             </div>
           </div>
-          <div class="accordion-item">
-            <h2 class="accordion-header" id="flush-headingOne">
+          <div className="accordion-item">
+            <h2 className="accordion-header" id="flush-headingOne">
               <button
-                class="accordion-button collapsed border-0"
+                className="accordion-button collapsed border-0"
                 type="button"
                 data-bs-toggle="collapse"
                 data-bs-target="#flush-collapseTwo"
@@ -86,12 +86,12 @@ function FAQ() {
             </h2>
             <div
               id="flush-collapseTwo"
-              class="accordion-collapse collapse border-0"
+              className="accordion-collapse collapse border-0"
               aria-labelledby="flush-headingOne"
               data-bs-parent="#myAccordion"
             >
-              <div class="accordion-body p-0">
-                <ul class="list-unstyled m-0">
+              <div className="accordion-body p-0">
+                <ul className="list-unstyled m-0">
                   <li>
                     When signing up, you have the choice between 4 types of
                     account. Any account NOT a General account, will require

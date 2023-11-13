@@ -1,7 +1,7 @@
 import { NavLink } from "react-router-dom";
 import gigIcon from "../imgs/gigintown-just-icon.png";
 
-function Nav({user}) {
+function Nav({loggedInUser}) {
   return (
     <>
       <nav className="navbar navbar-expand-lg navbar-light">
@@ -25,6 +25,11 @@ function Nav({user}) {
             id="navbarNav"
           >
             <ul className="navbar-nav">
+              {loggedInUser && 
+              <li className="nav-item text-white">
+                Hello, {loggedInUser.firstName}
+              </li>
+              }
             <li className="nav-item">
               <NavLink to="/faq" className="nav-link text-white">FAQ</NavLink>
               </li>
