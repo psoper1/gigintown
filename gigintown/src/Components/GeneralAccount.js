@@ -13,32 +13,25 @@ function GeneralAccount({ user, setUser, accountType }) {
 
   const handleRegister = async () => {
     try {
-      // Get the CSRF token from your backend
       const csrfResponse = await axios.get('http://localhost:8000/api/get-csrf-token/');
       const csrfToken = csrfResponse.data.csrf_token;
-
-      // Set the CSRF token in the request headers
       const headers = {
         'X-CSRFToken': csrfToken,
       };
-
-      // Make the registration request with the CSRF token included
       const response = await axios.post('http://localhost:8000/api/api/user/register/', user, { headers });
-
-      // Registration successful
       console.log('Registered!', accountType);
       console.log(response.data);
+      console.log(response)
 
-      // You can redirect the user to the login page or display a success message here.
+      // Redirect the user to the login page or display a success message here.
     } catch (error) {
-      // Registration failed
       setError(error.response.data.error);
 
-      // You can display an error message to the user.
+      // Display an error message to the user.
       console.error('Registration error:', error);
     }
   };
-
+console.log(user)
   return (
     <>
       <div className="card-body signup-card-body p-4 p-md-5">
@@ -98,7 +91,7 @@ function GeneralAccount({ user, setUser, accountType }) {
           {error && <div className="text-danger">{error}</div>}
 
           <button
-            type="button" // Change this to 'submit' if you wrap the form in a <form>
+            type="button"
             onClick={handleRegister}
             className="btn btn-success btn-lg mb-1"
           >

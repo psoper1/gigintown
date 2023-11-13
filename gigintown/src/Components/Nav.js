@@ -1,7 +1,16 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import gigIcon from "../imgs/gigintown-just-icon.png";
 
-function Nav({loggedInUser}) {
+function Nav({ loggedInUser }) {
+
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    localStorage.removeItem("loggedInUser");
+    navigate("/");
+    window.location.reload();
+  };
+
   return (
     <>
       <nav className="navbar navbar-expand-lg navbar-light">
@@ -25,27 +34,54 @@ function Nav({loggedInUser}) {
             id="navbarNav"
           >
             <ul className="navbar-nav">
-              {loggedInUser && 
-              <li className="nav-item text-white">
-                Hello, {loggedInUser.firstName}
+              {loggedInUser && (
+                <>
+                  <li className="nav-item text-white">
+                    Hello, {loggedInUser.firstName}
+                  </li>
+                  <li className="nav-item">
+                    <NavLink to="/user-profile" className="nav-link text-white">
+                      Profile
+                    </NavLink>
+                  </li>
+                </>
+              )}
+              <li className="nav-item">
+                <NavLink to="/faq" className="nav-link text-white">
+                  FAQ
+                </NavLink>
+              </li>
+              {loggedInUser && loggedInUser.userAccountType !== "General" && (
+                <li className="nav-item">
+                  <NavLink to="/event-form" className="nav-link text-white">
+                    Create Event
+                  </NavLink>
+                </li>
+              )}
+              {!loggedInUser && (
+                <>
+                  <li className="nav-item">
+                    <NavLink to="/sign-up" className="nav-link text-white">
+                      Sign Up
+                    </NavLink>
+                  </li>
+                  <li className="nav-item">
+                    <NavLink to="/login" className="nav-link text-white">
+                      Log In
+                    </NavLink>
+                  </li>
+                </>
+              )}
+              {loggedInUser && loggedInUser.userAccountType !== '' &&
+                  <li className="nav-item">
+                    <NavLink to="/user-profile" className="nav-link text-white">My Profile</NavLink>
+                  </li>
+              }
+              {loggedInUser && loggedInUser.userAccountType !== '' &&
+              <li className="nav-item">
+              <button className="nav-link text-white" onClick={handleLogout}>Log Out</button>
               </li>
               }
-            <li className="nav-item">
-              <NavLink to="/faq" className="nav-link text-white">FAQ</NavLink>
-              </li>
-              <li className="nav-item">
-              <NavLink to="/event-form" className="nav-link text-white">Create Event</NavLink>
-              </li>
-              <li className="nav-item">
-                <NavLink to="/sign-up" className="nav-link text-white">
-                  Sign Up
-                </NavLink>
-              </li>
-              <li className="nav-item">
-                <NavLink to="/login" className="nav-link text-white">
-                  Log In
-                </NavLink>
-              </li>
             </ul>
           </div>
         </div>
