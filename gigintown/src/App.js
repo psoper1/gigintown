@@ -11,10 +11,12 @@ import EventForm from "./Components/EventForm";
 import SelectedEvent from "./Components/SelectedEvent";
 import FAQ from "./Components/FAQ";
 import { GetLoggedInUserFromLocalStorage } from "./Components/GetLoggedInFromLocalStorage.js"
+import UserProfile from "./Components/UserProfile.js";
 
 function App() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [accountType, setAccountType] = useState("");
   const [user, setUser] = useState({
     password: "",
     passwordConf: "",
@@ -22,12 +24,12 @@ function App() {
     lastName: "",
     email: "",
     venueName: "",
+    account_type: "",
   });
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [loggedInUser, setLoggedInUser] = useState(GetLoggedInUserFromLocalStorage());
 
   useEffect(() => {
-    // Use the function to set the loggedInUser state when needed
     setLoggedInUser(GetLoggedInUserFromLocalStorage());
   }, []); 
 
@@ -46,6 +48,8 @@ function App() {
                 setPassword={setPassword}
                 user={user}
                 setUser={setUser}
+                accountType={accountType}
+                setAccountType={setAccountType}
               />
             }
           />
@@ -54,6 +58,7 @@ function App() {
           <Route path="/event-form" element={<EventForm user={user} />} />
           <Route path="/selected-event" element={<SelectedEvent selectedEvent={selectedEvent} />} />
           <Route path="/faq" element={<FAQ />} />
+          <Route path="/user-profile" element={<UserProfile loggedInUser={loggedInUser} />} />
         </Routes>
       </Router>
     </>

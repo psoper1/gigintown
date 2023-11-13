@@ -11,11 +11,11 @@ function Login({ setLoggedInUser, loggedInUser }) {
 
   useEffect(() => {
     if (userLoading) {
-      // Save the loggedInUser data to Local Storage here
       const data = {
         firstName: loggedInUser.firstName,
         lastName: loggedInUser.lastName,
         brandName: loggedInUser.brandName,
+        userAccountType: loggedInUser.userAccountType
       };
       localStorage.setItem("loggedInUser", JSON.stringify(data));
       setUserLoading(false);
@@ -29,12 +29,15 @@ function Login({ setLoggedInUser, loggedInUser }) {
         password: password,
       })
       .then((response) => {
-        setLoggedInUser({
+        const updatedUser = {
           firstName: response.data.first_name,
           lastName: response.data.last_name,
           brandName: response.data.brand_name,
-        });
+          userAccountType: response.data.account_type,
+        };
+        setLoggedInUser(updatedUser);
         setUserLoading(true);
+        console.log(updatedUser);
       })
       .catch((error) => {
         setError("Login failed. Please check your email and password.");
