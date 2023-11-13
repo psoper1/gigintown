@@ -1,10 +1,28 @@
 import { useState } from "react";
+import axios from "axios";
 import Nav from "./Nav";
 import GigInTownLogo from "../imgs/gigintown test3.png";
 
-function Login({ email, setEmail, password, setPassword }) {
+function Login() {
+  // Define email and password as local state variables
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
   const handleLogin = () => {
-    console.log("Logged in");
+    axios
+      .post("http://localhost:8000/api/api/token/", {
+        email: email,
+        password: password,
+      })
+      .then((response) => {
+        localStorage.setItem("access_token", response.data.access);
+        console.log("Logged in");
+        // Redirect to a protected route or perform other actions
+      })
+      .catch((error) => {
+        console.error("Login failed:", error);
+        // Handle login failure, show an error message, etc.
+      });
   };
 
   return (
@@ -18,7 +36,7 @@ function Login({ email, setEmail, password, setPassword }) {
                 <img
                   className="signup-image"
                   src={GigInTownLogo}
-                  alt="Sample photo"
+                  alt="Sample"
                 />
                 <div className="card-body signup-card-body p-4 p-md-5">
                   <h3 className="mb-4 pb-2 pb-md-0 mb-md-5 px-md-2 text-center">
@@ -31,12 +49,11 @@ function Login({ email, setEmail, password, setPassword }) {
                         id="email"
                         className="form-control form-control-lg inputField"
                         name="email"
+                        value={email} // Use email state
                         onChange={(e) => setEmail(e.target.value)}
                         required
                         placeholder="Email Address"
                       />
-
-                      <label className="form-label" htmlFor="email"></label>
                     </div>
 
                     <div className="mb-4">
@@ -45,18 +62,20 @@ function Login({ email, setEmail, password, setPassword }) {
                         id="password"
                         className="form-control form-control-lg inputField"
                         name="password"
+                        value={password} // Use password state
                         onChange={(e) => setPassword(e.target.value)}
                         required
                         placeholder="Password"
                       />
 
-                      <label className="form-label" htmlFor="password"></label>
                       <div className="pt-1 mb-4">
-                        <input
+                        <button
                           className="btn btn-info btn-lg"
-                          type="submit"
-                          value="Sign in"
-                        />
+                          type="button" // Change this to 'submit' if you wrap the form in a <form>
+                          onClick={handleLogin}
+                        >
+                          Sign in
+                        </button>
                       </div>
                     </div>
                   </form>
