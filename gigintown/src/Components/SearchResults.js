@@ -5,8 +5,11 @@ import {
   loadResultsFromLocalStorage,
   clearResultsFromLocalStorage,
 } from "./localStorageUtils";
+// import axios from "axios";
+// import { getCSRFToken } from "./CSRF";
 
-function SearchResults({ searchResults, setSearchResults, setSelectedEvent }) {
+
+function SearchResults({ searchResults, setSearchResults, setSelectedEvent, loggedInUser, setLoggedInUser }) {
   useEffect(() => {
     const storedResults = loadResultsFromLocalStorage();
     if (storedResults) {
@@ -52,6 +55,34 @@ function SearchResults({ searchResults, setSearchResults, setSelectedEvent }) {
   const handleEventSelection = (event) => {
     setSelectedEvent(event);
   };
+
+  // const handleAddToFavorites = async (event) => {
+  //   // Check if loggedInUser is defined
+  //   if (!loggedInUser) {
+  //     console.error("User is not logged in.");
+  //     return;
+  //   }
+  
+  //   // Check if the event is already saved
+  //   const isEventSaved = loggedInUser.saved_events && loggedInUser.saved_events.some(savedEvent => savedEvent.EventID === event.EventID);
+  
+  //   if (!isEventSaved) {
+  //     // Get CSRF token
+  //     const csrfToken = await getCSRFToken();
+  //     axios.defaults.headers.post['X-CSRFToken'] = csrfToken;
+  
+  //     // Send a POST request to save the event
+  //     axios.post(`http://localhost:8000/api/save-event/${event.EventID}/`)
+  //       .then(response => {
+  //         // Update the local loggedInUser object
+  //         const updatedUser = { ...loggedInUser, saved_events: [...(loggedInUser.saved_events || []), event] };
+  //         setLoggedInUser(updatedUser);
+  //       })
+  //       .catch(error => {
+  //         console.error("Error saving event:", error);
+  //       });
+  //   }
+  // };
 
   return (
     <div className="row">
@@ -102,6 +133,7 @@ function SearchResults({ searchResults, setSearchResults, setSelectedEvent }) {
                 >
                   View Full Event Info
                 </Link>
+                {/* <button onClick={() => handleAddToFavorites(event)}>Add to favorites</button> */}
               </div>
             </div>
           </div>

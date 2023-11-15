@@ -37,7 +37,7 @@ function App() {
     <>
       <Router basename="/">
         <Routes>
-          <Route path="/" element={<HomePage user={user} setSelectedEvent={setSelectedEvent} loggedInUser={loggedInUser} />} />
+          <Route path="/" element={<HomePage user={user} setSelectedEvent={setSelectedEvent} loggedInUser={loggedInUser} setLoggedInUser={setLoggedInUser} />} />
           <Route
             path="/sign-up"
             element={

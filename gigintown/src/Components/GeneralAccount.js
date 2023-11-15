@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { useState } from 'react';
+// import AuthService from '../services/auth.service';
 
 function GeneralAccount({ user, setUser, accountType }) {
   const [error, setError] = useState(null);
@@ -11,26 +12,50 @@ function GeneralAccount({ user, setUser, accountType }) {
     });
   };
 
-  const handleRegister = async () => {
-    try {
-      const csrfResponse = await axios.get('http://localhost:8000/api/get-csrf-token/');
-      const csrfToken = csrfResponse.data.csrf_token;
-      const headers = {
-        'X-CSRFToken': csrfToken,
-      };
-      const response = await axios.post('http://localhost:8000/api/api/user/register/', user, { headers });
-      console.log('Registered!', accountType);
-      console.log(response.data);
-      console.log(response)
+  // const handleRegister = async () => {
+  //   try {
+  //     const response = await AuthService.register({
+  //       firstName: user.first_name,
+  //       lastName: user.last_name,
+  //       email: user.email,
+  //       password: user.password,
+  //       accountType: user.accountType,
+  //     });
+  
+  //     if (response.status === 200) {
+  //       // Handle successful registration
+  //       console.log('Registration successful');
+  //     } else {
+  //       // Handle registration failure
+  //       console.error('Registration failed:', response);
+  //     }
+  //   } catch (error) {
+  //     // Handle registration error
+  //     console.error('Registration error:', error);
+  //   }
+  // };
 
-      // Redirect the user to the login page or display a success message here.
-    } catch (error) {
-      setError(error.response.data.error);
+  // const handleRegister = async () => {
+  //   try {
+  //     const csrfResponse = await axios.get('http://localhost:8000/api/get-csrf-token/');
+  //     const csrfToken = csrfResponse.data.csrf_token;
+  //     const headers = {
+  //       'X-CSRFToken': csrfToken,
+  //     };
+  //     const response = await axios.post('http://localhost:8000/api/api/user/register/', user, { headers });
+  //     console.log('Registered!', accountType);
+  //     console.log(response.data);
+  //     console.log(response)
 
-      // Display an error message to the user.
-      console.error('Registration error:', error);
-    }
-  };
+  //     // Redirect the user to the login page or display a success message here.
+  //   } catch (error) {
+  //     setError(error.response.data.error);
+
+  //     // Display an error message to the user.
+  //     console.error('Registration error:', error);
+  //   }
+  // };
+
 console.log(user)
   return (
     <>
@@ -90,13 +115,13 @@ console.log(user)
 
           {error && <div className="text-danger">{error}</div>}
 
-          <button
+          {/* <button
             type="button"
             onClick={handleRegister}
             className="btn btn-success btn-lg mb-1"
           >
             Submit
-          </button>
+          </button> */}
         </form>
       </div>
     </>
