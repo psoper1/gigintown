@@ -1,38 +1,51 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
-import Nav from "./Nav";
+import React, { useState, useEffect, useRef } from 'react';
+import Api from './Api';
+import Nav from './Nav';
 
-function UserProfile({ loggedInUser }) {
+const UserProfile = () => {
   const [savedEvents, setSavedEvents] = useState([]);
+  const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
+  const prevLoggedInUser = useRef(loggedInUser);
 
   useEffect(() => {
-    // Fetch saved events for the logged-in user
-    if (loggedInUser && loggedInUser.saved_events) {
-      const eventIDs = loggedInUser.saved_events.map(event => event.EventID);
-      axios.get(`http://localhost:8000/api/saved-events/?event_ids=${eventIDs.join(',')}`)
-        .then(response => {
+    console.log("Event GET running");
+
+    const fetchData = async () => {
+      try {
+        if (loggedInUser.email) {
+          const response = await Api.get('http://localhost:8000/api/get-saved-events/');
           setSavedEvents(response.data);
-        })
-        .catch(error => {
-          console.error("Error fetching saved events:", error);
-        });
-    }
-  }, [loggedInUser]);
+          console.log(response);
+        }
+      } catch (error) {
+        console.error("Error fetching saved events:", error);
+      }
+    };
+
+    fetchData();
+    prevLoggedInUser.current = loggedInUser; // Update the previous user
+    // eslint-disable-next-line
+  }, []); 
 
   return (
-    <>
+    <div>
       <Nav loggedInUser={loggedInUser} />
-      <div className="text-center">{loggedInUser.firstName}</div>
-      <div>
-        <h2>Saved Events:</h2>
-        <ul>
-          {savedEvents.map(savedEvent => (
-            <li key={savedEvent.EventID}>{savedEvent.Title}</li>
-          ))}
-        </ul>
-      </div>
-    </>
+      {loggedInUser && (
+        <>
+          <h1>{loggedInUser.email}</h1>
+          <h2>Saved Events</h2>
+          <ul>
+            {savedEvents.map((event) => (
+              <>
+              <li key={event.EventID}>{event.Title}</li>
+              <img src={event.Flyer} alt='test'/>
+              </>
+            ))}
+          </ul>
+        </>
+      )}
+    </div>
   );
-}
+};
 
 export default UserProfile;

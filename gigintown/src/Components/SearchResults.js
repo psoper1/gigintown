@@ -5,7 +5,7 @@ import {
   loadResultsFromLocalStorage,
   clearResultsFromLocalStorage,
 } from "./localStorageUtils";
-// import axios from "axios";
+import axios from "axios";
 // import { getCSRFToken } from "./CSRF";
 
 
@@ -56,6 +56,43 @@ function SearchResults({ searchResults, setSearchResults, setSelectedEvent, logg
     setSelectedEvent(event);
   };
 
+  const handleAddToFavorites = async (event) => {
+    if (!loggedInUser) {
+      console.error('User is not logged in.');
+      return;
+    }
+  
+    try {
+      const authToken = localStorage.getItem('authToken');
+  
+      if (!authToken) {
+        console.error('Auth token is missing.');
+        return;
+      }
+  
+      const response = await axios.post(
+        `http://localhost:8000/api/save-event/${event.EventID}/`,
+        {},
+        {
+          headers: {
+            Authorization: `JWT ${authToken}`, // Corrected from 'JWT'
+          },
+        }
+      );
+      console.log(authToken)
+  
+      // Updates the local loggedInUser object
+      const updatedUser = {
+        ...loggedInUser,
+        saved_events: [...(loggedInUser.saved_events || []), event],
+      };
+  
+      setLoggedInUser(updatedUser);
+      console.log('Event saved successfully!', response.data);
+    } catch (error) {
+      console.error('Error saving event:', error);
+    }
+  };
   // const handleAddToFavorites = async (event) => {
   //   // Check if loggedInUser is defined
   //   if (!loggedInUser) {
@@ -133,7 +170,7 @@ function SearchResults({ searchResults, setSearchResults, setSelectedEvent, logg
                 >
                   View Full Event Info
                 </Link>
-                {/* <button onClick={() => handleAddToFavorites(event)}>Add to favorites</button> */}
+                <button onClick={() => handleAddToFavorites(event)}>Add to favorites</button>
               </div>
             </div>
           </div>
