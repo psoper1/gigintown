@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { useState } from 'react';
 
-function GeneralAccount({ user, setUser, accountType }) {
+function GeneralAccount({ user, setUser }) {
   const [error, setError] = useState(null);
 
   const handleChange = (key, value) => {
@@ -13,25 +13,22 @@ function GeneralAccount({ user, setUser, accountType }) {
 
   const handleRegister = async () => {
     try {
-      const csrfResponse = await axios.get('http://localhost:8000/api/get-csrf-token/');
-      const csrfToken = csrfResponse.data.csrf_token;
-      const headers = {
-        'X-CSRFToken': csrfToken,
-      };
-      const response = await axios.post('http://localhost:8000/api/api/user/register/', user, { headers });
-      console.log('Registered!', accountType);
+      const response = await axios.post('http://localhost:8000/api/user/create/', {
+        email: user.email,
+        password: user.password,
+        account_type: user.account_type,
+      });
+  
+      console.log('Registered!');
       console.log(response.data);
-      console.log(response)
-
-      // Redirect the user to the login page or display a success message here.
+  
+      // Handle successful registration, e.g., redirect the user to the login page possibly, or to a successful registration page
     } catch (error) {
-      setError(error.response.data.error);
-
-      // Display an error message to the user.
+      setError(error.response?.data?.error || 'Registration error');
       console.error('Registration error:', error);
     }
   };
-console.log(user)
+
   return (
     <>
       <div className="card-body signup-card-body p-4 p-md-5">
@@ -39,26 +36,7 @@ console.log(user)
           Registration Info
         </h3>
         <form className="px-md-2">
-          <div className="mb-4">
-            <input
-              type="text"
-              id="first_name"
-              className="form-control form-control-lg inputField"
-              onChange={(e) => handleChange("first_name", e.target.value)}
-              placeholder="First Name"
-            />
-          </div>
-
-          <div className="mb-4">
-            <input
-              type="text"
-              id="last_name"
-              className="form-control form-control-lg inputField"
-              onChange={(e) => handleChange("last_name", e.target.value)}
-              placeholder="Last Name"
-            />
-          </div>
-
+          {/* Other form fields will be needed like password confirmation */}
           <div className="mb-4">
             <input
               type="email"
@@ -76,15 +54,6 @@ console.log(user)
               className="form-control form-control-lg inputField"
               onChange={(e) => handleChange("password", e.target.value)}
               placeholder="Password"
-            />
-          </div>
-          <div className="mb-4">
-            <input
-              type="password"
-              id="passConf"
-              className="form-control form-control-lg inputField"
-              onChange={(e) => handleChange("passwordConf", e.target.value)}
-              placeholder="Confirm Password"
             />
           </div>
 

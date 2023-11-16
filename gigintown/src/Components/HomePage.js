@@ -5,12 +5,12 @@ import axios from "axios";
 import EventSearch from "./EventSearch";
 import SearchResults from "./SearchResults";
 
-function HomePage({ user, setSelectedEvent, loggedInUser }) {
+function HomePage({ user, setSelectedEvent, loggedInUser, setLoggedInUser }) {
   const [searchResults, setSearchResults] = useState([]);
 
   const handleSearch = (city, state) => {
     axios
-      .get("http://localhost:8000/api/api/events/search/", {
+      .get("http://localhost:8000/api/events/search/", {
         params: {
           City: city,
           State: state,
@@ -32,7 +32,7 @@ function HomePage({ user, setSelectedEvent, loggedInUser }) {
       </div>
       <EventSearch onSearch={handleSearch} />
       <div className="container results-container">
-        <SearchResults searchResults={searchResults} setSearchResults={setSearchResults} setSelectedEvent={setSelectedEvent} />
+        <SearchResults searchResults={searchResults} setSearchResults={setSearchResults} setSelectedEvent={setSelectedEvent} loggedInUser={loggedInUser} setLoggedInUser={setLoggedInUser} />
       </div>
     </>
   );
