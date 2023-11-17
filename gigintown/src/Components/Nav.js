@@ -4,9 +4,10 @@ import gigIcon from "../imgs/gigintown-just-icon.png";
 function Nav({ loggedInUser }) {
 
   const navigate = useNavigate();
-
+  
   const handleLogout = () => {
-    localStorage.removeItem("loggedInUser");
+    localStorage.removeItem("authToken");
+    localStorage.removeItem("loggedInUser")
     navigate("/");
     window.location.reload();
   };
@@ -37,7 +38,7 @@ function Nav({ loggedInUser }) {
               {loggedInUser && (
                 <>
                   <li className="nav-item text-white">
-                    Hello, {loggedInUser.firstName}
+                    Hello, {loggedInUser.first_name}
                   </li>
                   <li className="nav-item">
                     <NavLink to="/user-profile" className="nav-link text-white">
@@ -51,13 +52,12 @@ function Nav({ loggedInUser }) {
                   FAQ
                 </NavLink>
               </li>
-              {loggedInUser && loggedInUser.userAccountType !== "General" && (
+              
                 <li className="nav-item">
                   <NavLink to="/event-form" className="nav-link text-white">
                     Create Event
                   </NavLink>
                 </li>
-              )}
               {!loggedInUser && (
                 <>
                   <li className="nav-item">
@@ -72,12 +72,12 @@ function Nav({ loggedInUser }) {
                   </li>
                 </>
               )}
-              {loggedInUser && loggedInUser.userAccountType !== '' &&
+              {loggedInUser && loggedInUser.firstName !== '' &&
                   <li className="nav-item">
                     <NavLink to="/user-profile" className="nav-link text-white">My Profile</NavLink>
                   </li>
               }
-              {loggedInUser && loggedInUser.userAccountType !== '' &&
+              {loggedInUser && loggedInUser.firstName !== '' &&
               <li className="nav-item">
               <button className="nav-link text-white" onClick={handleLogout}>Log Out</button>
               </li>

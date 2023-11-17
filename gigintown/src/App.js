@@ -1,5 +1,5 @@
 import "./App.css";
-import { HashRouter as Router, Routes, Route } from "react-router-dom";
+import { HashRouter as Router, Routes, Route, } from "react-router-dom";
 import HomePage from "./Components/HomePage";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min";
@@ -10,8 +10,9 @@ import { useEffect, useState } from "react";
 import EventForm from "./Components/EventForm";
 import SelectedEvent from "./Components/SelectedEvent";
 import FAQ from "./Components/FAQ";
-import { GetLoggedInUserFromLocalStorage } from "./Components/GetLoggedInFromLocalStorage.js"
+import { GetLoggedInUserFromLocalStorage } from "./Components/GetLoggedInFromLocalStorage.js";
 import UserProfile from "./Components/UserProfile.js";
+import axios from 'axios';
 
 function App() {
   const [email, setEmail] = useState("");
@@ -27,17 +28,29 @@ function App() {
     account_type: "",
   });
   const [selectedEvent, setSelectedEvent] = useState(null);
-  const [loggedInUser, setLoggedInUser] = useState(GetLoggedInUserFromLocalStorage());
+  const [loggedInUser, setLoggedInUser] = useState(
+    GetLoggedInUserFromLocalStorage()
+  );
 
   useEffect(() => {
     setLoggedInUser(GetLoggedInUserFromLocalStorage());
-  }, []); 
+  }, []);
 
   return (
     <>
       <Router basename="/">
         <Routes>
-          <Route path="/" element={<HomePage user={user} setSelectedEvent={setSelectedEvent} loggedInUser={loggedInUser} />} />
+          <Route
+            path="/"
+            element={
+              <HomePage
+                user={user}
+                setSelectedEvent={setSelectedEvent}
+                loggedInUser={loggedInUser}
+                setLoggedInUser={setLoggedInUser}
+              />
+            }
+          />
           <Route
             path="/sign-up"
             element={
@@ -53,12 +66,26 @@ function App() {
               />
             }
           />
-          <Route path="/login" element={<Login setLoggedInUser={setLoggedInUser} loggedInUser={loggedInUser} />} />
+          <Route
+            path="/login"
+            element={
+              <Login
+                setLoggedInUser={setLoggedInUser}
+                loggedInUser={loggedInUser}
+              />
+            }
+          />
           <Route path="/venue-verification" element={<VenueVerification />} />
           <Route path="/event-form" element={<EventForm user={user} />} />
-          <Route path="/selected-event" element={<SelectedEvent selectedEvent={selectedEvent} />} />
+          <Route
+            path="/selected-event"
+            element={<SelectedEvent selectedEvent={selectedEvent} />}
+          />
           <Route path="/faq" element={<FAQ />} />
-          <Route path="/user-profile" element={<UserProfile loggedInUser={loggedInUser} />} />
+          <Route
+            path="/user-profile"
+            element={<UserProfile loggedInUser={loggedInUser} />}
+          />
         </Routes>
       </Router>
     </>
