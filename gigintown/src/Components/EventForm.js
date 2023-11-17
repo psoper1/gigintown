@@ -159,7 +159,7 @@ function EventForm({ user }) {
             </form>
           </div>
 
-          <div className="col-md-4 eventForm1">
+          <div className="col-md-4 eventForm1 eventForm2">
             <form onSubmit={handleSubmit}>
               <div className="mb-3">
                 <label className="text-white">Address:</label>
