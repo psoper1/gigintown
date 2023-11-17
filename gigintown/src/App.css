@@ -203,3 +203,9 @@ body {
     width: 90% !important;
   }
 }
+
+.navbar {
+  position: sticky;
+  top: 0px;
+  z-index: 1;
+}
