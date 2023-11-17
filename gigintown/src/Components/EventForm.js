@@ -1,3 +1,4 @@
+
 import axios from "axios";
 import { useState } from "react";
 import Nav from "./Nav";
@@ -72,7 +73,7 @@ function EventForm({ user }) {
       <Nav user={user} />
       <div className="container">
         <div className="row">
-          <div className="col-md-6">
+          <div className="col-md-4 eventForm1">
             <form onSubmit={handleSubmit}>
               <div className="mb-3">
                 <label className="text-white">Title:</label>
@@ -158,7 +159,7 @@ function EventForm({ user }) {
             </form>
           </div>
 
-          <div className="col-md-6">
+          <div className="col-md-4 eventForm1 eventForm2">
             <form onSubmit={handleSubmit}>
               <div className="mb-3">
                 <label className="text-white">Address:</label>
