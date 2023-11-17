@@ -1,12 +1,15 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import Nav from "./Nav";
 import GigInTownLogo from "../imgs/gigintown test3.png";
+import { useNavigate } from "react-router-dom";
 
 function Login({ setLoggedInUser, loggedInUser }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
+
+  const navigate = useNavigate();
 
   const handleLogin = async () => {
     try {
@@ -26,11 +29,12 @@ function Login({ setLoggedInUser, loggedInUser }) {
       });
   
       const userDetails = userDetailsResponse.data;
+      console.log(userDetails)
   
       localStorage.setItem('authToken', authToken);
-      console.log('Auth Token is: ', response.data.access);
+      // console.log('Auth Token is: ', response.data.access);
       localStorage.setItem('refreshToken', response.data.refresh);
-      console.log('Refresh Token is: ', response.data.refresh);
+      // console.log('Refresh Token is: ', response.data.refresh);
       localStorage.setItem('loggedInUser', JSON.stringify(userDetails));
   
       setLoggedInUser(true);
@@ -39,6 +43,17 @@ function Login({ setLoggedInUser, loggedInUser }) {
       console.error('Login failed:', error);
     }
   };
+
+  useEffect(() => {
+    if (loggedInUser) {
+        const timer = setTimeout(() => {
+            navigate('/');
+            window.location.reload();
+            // location.reload(true)
+        }, 0);
+        return () => clearTimeout(timer);
+    }
+}, [navigate, loggedInUser]);
 
   return (
     <>
