@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { useState } from 'react';
 
-function GeneralAccount({ user, setUser, accountType }) {
+function GeneralAccount({ user, setUser }) {
   const [error, setError] = useState(null);
 
   const handleChange = (key, value) => {
@@ -13,28 +13,18 @@ function GeneralAccount({ user, setUser, accountType }) {
 
   const handleRegister = async () => {
     try {
-      // Get the CSRF token from your backend
-      const csrfResponse = await axios.get('http://localhost:8000/api/get-csrf-token/');
-      const csrfToken = csrfResponse.data.csrf_token;
-
-      // Set the CSRF token in the request headers
-      const headers = {
-        'X-CSRFToken': csrfToken,
-      };
-
-      // Make the registration request with the CSRF token included
-      const response = await axios.post('http://localhost:8000/api/api/user/register/', user, { headers });
-
-      // Registration successful
-      console.log('Registered!', accountType);
+      const response = await axios.post('http://localhost:8000/api/user/create/', {
+        email: user.email,
+        password: user.password,
+        account_type: user.account_type,
+      });
+  
+      console.log('Registered!');
       console.log(response.data);
-
-      // You can redirect the user to the login page or display a success message here.
+  
+      // Handle successful registration, e.g., redirect the user to the login page possibly, or to a successful registration page
     } catch (error) {
-      // Registration failed
-      setError(error.response.data.error);
-
-      // You can display an error message to the user.
+      setError(error.response?.data?.error || 'Registration error');
       console.error('Registration error:', error);
     }
   };
@@ -46,26 +36,7 @@ function GeneralAccount({ user, setUser, accountType }) {
           Registration Info
         </h3>
         <form className="px-md-2">
-          <div className="mb-4">
-            <input
-              type="text"
-              id="first_name"
-              className="form-control form-control-lg inputField"
-              onChange={(e) => handleChange("first_name", e.target.value)}
-              placeholder="First Name"
-            />
-          </div>
-
-          <div className="mb-4">
-            <input
-              type="text"
-              id="last_name"
-              className="form-control form-control-lg inputField"
-              onChange={(e) => handleChange("last_name", e.target.value)}
-              placeholder="Last Name"
-            />
-          </div>
-
+          {/* Other form fields will be needed like password confirmation */}
           <div className="mb-4">
             <input
               type="email"
@@ -85,20 +56,11 @@ function GeneralAccount({ user, setUser, accountType }) {
               placeholder="Password"
             />
           </div>
-          <div className="mb-4">
-            <input
-              type="password"
-              id="passConf"
-              className="form-control form-control-lg inputField"
-              onChange={(e) => handleChange("passwordConf", e.target.value)}
-              placeholder="Confirm Password"
-            />
-          </div>
 
           {error && <div className="text-danger">{error}</div>}
 
           <button
-            type="button" // Change this to 'submit' if you wrap the form in a <form>
+            type="button"
             onClick={handleRegister}
             className="btn btn-success btn-lg mb-1"
           >

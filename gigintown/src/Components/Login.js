@@ -3,31 +3,46 @@ import axios from "axios";
 import Nav from "./Nav";
 import GigInTownLogo from "../imgs/gigintown test3.png";
 
-function Login() {
-  // Define email and password as local state variables
+function Login({ setLoggedInUser, loggedInUser }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState(null);
 
-  const handleLogin = () => {
-    axios
-      .post("http://localhost:8000/api/api/token/", {
-        email: email,
-        password: password,
-      })
-      .then((response) => {
-        localStorage.setItem("access_token", response.data.access);
-        console.log("Logged in");
-        // Redirect to a protected route or perform other actions
-      })
-      .catch((error) => {
-        console.error("Login failed:", error);
-        // Handle login failure, show an error message, etc.
+  const handleLogin = async () => {
+    try {
+      const response = await axios.post('http://localhost:8000/api/token/obtain/', {
+        email,
+        password,
       });
+  
+      console.log('Login Response:', response.data);
+  
+      const authToken = response.data.access;
+  
+      const userDetailsResponse = await axios.get('http://localhost:8000/api/user/details/', {
+        headers: {
+          Authorization: `JWT ${authToken}`,
+        },
+      });
+  
+      const userDetails = userDetailsResponse.data;
+  
+      localStorage.setItem('authToken', authToken);
+      console.log('Auth Token is: ', response.data.access);
+      localStorage.setItem('refreshToken', response.data.refresh);
+      console.log('Refresh Token is: ', response.data.refresh);
+      localStorage.setItem('loggedInUser', JSON.stringify(userDetails));
+  
+      setLoggedInUser(true);
+    } catch (error) {
+      setError('Login failed. Please check your email and password.');
+      console.error('Login failed:', error);
+    }
   };
 
   return (
     <>
-      <Nav />
+      <Nav loggedInUser={loggedInUser} />
       <section className="h-100 h-custom section-signup">
         <div className="container py-5 h-100">
           <div className="row d-flex justify-content-center align-items-center h-100">
@@ -49,7 +64,7 @@ function Login() {
                         id="email"
                         className="form-control form-control-lg inputField"
                         name="email"
-                        value={email} // Use email state
+                        value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         required
                         placeholder="Email Address"
@@ -62,16 +77,18 @@ function Login() {
                         id="password"
                         className="form-control form-control-lg inputField"
                         name="password"
-                        value={password} // Use password state
+                        value={password}
                         onChange={(e) => setPassword(e.target.value)}
                         required
                         placeholder="Password"
                       />
 
+                      {error && <div className="text-danger mb-3">{error}</div>}
+
                       <div className="pt-1 mb-4">
                         <button
                           className="btn btn-info btn-lg"
-                          type="button" // Change this to 'submit' if you wrap the form in a <form>
+                          type="button"
                           onClick={handleLogin}
                         >
                           Sign in

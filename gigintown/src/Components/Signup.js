@@ -4,8 +4,7 @@ import GigInTownLogo from "../imgs/gigintown test3.png";
 import GeneralAccount from "./GeneralAccount";
 import { Link } from "react-router-dom";
 
-function Signup({ user, setUser }) {
-  const [accountType, setAccountType] = useState("");
+function Signup({ user, setUser, accountType, setAccountType }) {
   const [formData, setFormData] = useState({
     artistName: "",
     firstName: "",
@@ -53,16 +52,27 @@ function Signup({ user, setUser }) {
 
   const handleDropdownChange = (event) => {
     const selectedValue = event.target.value;
+    let updatedAccountType;
+  
     if (selectedValue === "Artist") {
-      setAccountType("Artist");
+      updatedAccountType = "Artist";
     } else if (selectedValue === "Venue") {
-      setAccountType("Venue");
+      updatedAccountType = "Venue";
     } else if (selectedValue === "Promoter") {
-      setAccountType("Promoter");
+      updatedAccountType = "Promoter";
     } else if (selectedValue === "General User") {
-      setAccountType("General User");
+      updatedAccountType = "General";
     }
+  
+    setUser((prevUser) => ({
+      ...prevUser,
+      account_type: updatedAccountType,
+    }));
+    setAccountType(updatedAccountType);
+    console.log(updatedAccountType);
+    console.log(user.account_type);
   };
+  console.log(accountType);
 
   return (
     <>
@@ -108,7 +118,10 @@ function Signup({ user, setUser }) {
                       the verification process works and how long it takes,
                       please use this link.
                     </p>
-                    <p>For more information on the different types of accounts, see the <Link to="/faq">FAQ</Link></p>
+                    <p>
+                      For more information on the different types of accounts,
+                      see the <Link to="/faq">FAQ</Link>
+                    </p>
                     <form onSubmit={handleSubmit}>
                       <input
                         type="text"
@@ -149,15 +162,22 @@ function Signup({ user, setUser }) {
                     </form>
                   </>
                 )}
-                {accountType === "General User" && (
+                {accountType === "General" && (
                   <>
-                  <div>Note: General Accounts are unable to Create Events. If you are representing an Artist, Venue or are a Promoter please choose from the dropdown above.</div>
-                  <div>For more information on the different types of accounts, see the <Link to="/faq">FAQ</Link></div>
-                  <GeneralAccount
-                    user={user}
-                    setUser={setUser}
-                    accountType={accountType}
-                  />
+                    <div>
+                      Note: General Accounts are unable to Create Events. If you
+                      are representing an Artist, Venue or are a Promoter please
+                      choose from the dropdown above.
+                    </div>
+                    <div>
+                      For more information on the different types of accounts,
+                      see the <Link to="/faq">FAQ</Link>
+                    </div>
+                    <GeneralAccount
+                      user={user}
+                      setUser={setUser}
+                      accountType={accountType}
+                    />
                   </>
                 )}
               </div>
