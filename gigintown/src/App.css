@@ -190,6 +190,7 @@ body {
 .wrapper .accordion-collapse ul li:hover a {
   color: #222;
 }
+
 @media (max-width: 777px) {
   .wrapper {
     margin: 50px 20px;
@@ -205,22 +206,26 @@ body {
 }
 @media (max-width: 991px) {
   .eventForm1{
-    margin-top: 50px;
+    margin-top: 50px !important;
     margin-left: auto;
     margin-right: auto;
     display: block; 
-    width:75%;
+    width:75% !important; 
   }
 }
 @media (max-width:420px) {
-  .eventForm1{width:90%;}
+  .eventForm1{width:90% !important;}
 }
 @media (min-width:992px) {
   .eventForm1{
-    margin-top: 50px;
+    margin-top: 50px !important;
     margin-left: auto;
     margin-right: auto;
     display: block; 
-    width:55%;
+    width:55% !important;
 }
+
 }
+.eventForm2{margin-top: 0px !important;margin-bottom: 50px;}
+.navbar-toggler{background-color: white !important;}
+.navbar-toggler:focus{box-shadow: none !important;}
