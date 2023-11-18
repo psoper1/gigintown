@@ -1,9 +1,9 @@
 import Nav from "./Nav";
 
-function FAQ() {
+function FAQ({loggedInUser}) {
   return (
     <>
-      <Nav />
+      <Nav loggedInUser={loggedInUser} />
       <div className="wrapper bg-white rounded shadow">
         <div className="h3 text-primary text-center">How can we help you?</div>
         <div className="d-flex justify-content-center"></div>

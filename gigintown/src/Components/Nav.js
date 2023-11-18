@@ -40,11 +40,6 @@ function Nav({ loggedInUser }) {
                   <li className="nav-item text-white">
                     Hello, {loggedInUser.first_name}
                   </li>
-                  <li className="nav-item">
-                    <NavLink to="/user-profile" className="nav-link text-white">
-                      Profile
-                    </NavLink>
-                  </li>
                 </>
               )}
               <li className="nav-item">
