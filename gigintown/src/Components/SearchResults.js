@@ -5,8 +5,7 @@ import {
   loadResultsFromLocalStorage,
   clearResultsFromLocalStorage,
 } from "./localStorageUtils";
-import axios from "axios";
-// import { getCSRFToken } from "./CSRF";
+import Api from "./Api";
 
 
 function SearchResults({ searchResults, setSearchResults, setSelectedEvent, loggedInUser, setLoggedInUser }) {
@@ -70,56 +69,21 @@ function SearchResults({ searchResults, setSearchResults, setSelectedEvent, logg
         return;
       }
   
-      const response = await axios.post(
-        `http://localhost:8000/api/save-event/${event.EventID}/`,
+      const response = await Api.post(
+        `/save-event/${event.EventID}/`,
         {},
         {
           headers: {
-            Authorization: `JWT ${authToken}`, // Corrected from 'JWT'
+            Authorization: `JWT ${authToken}`,
           },
         }
       );
-      console.log(authToken)
   
-      // Updates the local loggedInUser object
-      const updatedUser = {
-        ...loggedInUser,
-        saved_events: [...(loggedInUser.saved_events || []), event],
-      };
-  
-      setLoggedInUser(updatedUser);
-      console.log('Event saved successfully!', response.data);
+      console.log(response);
     } catch (error) {
-      console.error('Error saving event:', error);
+      console.error('Error adding event to favorites:', error);
     }
   };
-  // const handleAddToFavorites = async (event) => {
-  //   // Check if loggedInUser is defined
-  //   if (!loggedInUser) {
-  //     console.error("User is not logged in.");
-  //     return;
-  //   }
-  
-  //   // Check if the event is already saved
-  //   const isEventSaved = loggedInUser.saved_events && loggedInUser.saved_events.some(savedEvent => savedEvent.EventID === event.EventID);
-  
-  //   if (!isEventSaved) {
-  //     // Get CSRF token
-  //     const csrfToken = await getCSRFToken();
-  //     axios.defaults.headers.post['X-CSRFToken'] = csrfToken;
-  
-  //     // Send a POST request to save the event
-  //     axios.post(`http://localhost:8000/api/save-event/${event.EventID}/`)
-  //       .then(response => {
-  //         // Update the local loggedInUser object
-  //         const updatedUser = { ...loggedInUser, saved_events: [...(loggedInUser.saved_events || []), event] };
-  //         setLoggedInUser(updatedUser);
-  //       })
-  //       .catch(error => {
-  //         console.error("Error saving event:", error);
-  //       });
-  //   }
-  // };
 
   return (
     <div className="row">
@@ -139,7 +103,7 @@ function SearchResults({ searchResults, setSearchResults, setSelectedEvent, logg
                   {truncateDescription(event.Description, 75)}
                 </p>
                 <p className="card-text">{event.Artists}</p>
-                <p className="card-text">{event.Data}</p>
+                <p className="card-text">{event.Date}</p>
                 <p className="card-text">{convertTo12HourFormat(event.Time)}</p>
                 <p className="card-text">
                   <a

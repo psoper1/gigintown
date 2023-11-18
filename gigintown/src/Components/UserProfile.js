@@ -25,9 +25,26 @@ const UserProfile = () => {
     };
 
     fetchData();
-    prevLoggedInUser.current = loggedInUser; // Update the previous user
+    prevLoggedInUser.current = loggedInUser;
     // eslint-disable-next-line
   }, []);
+
+  const handleRemoveFromFavorites = async (eventId) => {
+    try {
+      const response = await Api.delete(`/save-event/${eventId}/`);
+      setSavedEvents(savedEvents.filter((event) => event.EventID !== eventId));
+      console.log(response);
+      const updatedUser = {
+        ...loggedInUser,
+        saved_events: loggedInUser.saved_events.filter(
+          (event) => event.EventID !== eventId
+        ),
+      };
+      localStorage.setItem("loggedInUser", JSON.stringify(updatedUser));
+    } catch (error) {
+      console.error("Error removing event from favorites:", error);
+    }
+  };
 
   return (
     <div>
@@ -37,10 +54,13 @@ const UserProfile = () => {
           <h1>{loggedInUser.email}</h1>
           <h2>Saved Events</h2>
           {savedEvents.map((event) => (
-              <div key={event.EventID}>
-                <h2>{event.Title}</h2>
-                <img src={event.Flyer} alt="test" />
-              </div>
+            <div key={event.EventID}>
+              <h2>{event.Title}</h2>
+              <img src={event.Flyer} alt="test" />
+              <button onClick={() => handleRemoveFromFavorites(event.EventID)}>
+                Remove from Favorites
+              </button>
+            </div>
           ))}
         </>
       )}

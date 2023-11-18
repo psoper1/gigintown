@@ -2,7 +2,7 @@ import axios from "axios";
 import { useState } from "react";
 import Nav from "./Nav";
 
-function EventForm({ user }) {
+function EventForm({ user, loggedInUser }) {
   const [formData, setFormData] = useState({
     title: "",
     flyer: "",
@@ -47,6 +47,7 @@ function EventForm({ user }) {
         Price: formData.price,
         IsAllAges: formData.isAllAges,
         Link: formData.link,
+        Created_By_Email: loggedInUser.email,
       };
 
       const options = {
@@ -69,7 +70,7 @@ function EventForm({ user }) {
 
   return (
     <>
-      <Nav user={user} />
+      <Nav user={user} loggedInUser={loggedInUser} />
       <div className="container">
         <div className="row">
           <div className="col-md-4 eventForm1">
