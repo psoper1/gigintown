@@ -52,12 +52,13 @@ function Nav({ loggedInUser }) {
                   FAQ
                 </NavLink>
               </li>
-              
+              {loggedInUser && loggedInUser.account_type !== 'General' &&
                 <li className="nav-item">
                   <NavLink to="/event-form" className="nav-link text-white">
                     Create Event
                   </NavLink>
                 </li>
+              }
               {!loggedInUser && (
                 <>
                   <li className="nav-item">

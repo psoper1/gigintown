@@ -1,7 +1,7 @@
-import axios from 'axios';
-import { useState } from 'react';
+import axios from "axios";
+import { useState } from "react";
 
-function GeneralAccount({ user, setUser }) {
+function GeneralAccount({ user, setUser, accountType }) {
   const [error, setError] = useState(null);
 
   const handleChange = (key, value) => {
@@ -13,19 +13,30 @@ function GeneralAccount({ user, setUser }) {
 
   const handleRegister = async () => {
     try {
-      const response = await axios.post('http://localhost:8000/api/user/create/', {
-        email: user.email,
-        password: user.password,
-        account_type: user.account_type,
-      });
-  
-      console.log('Registered!');
+      const response = await axios.post(
+        "http://localhost:8000/api/user/create/",
+        {
+          email: user.email,
+          password: user.password,
+          account_type: user.account_type,
+          first_name: user.firstName,
+          last_name: user.lastName,
+          address: user.address,
+          city: user.city,
+          state: user.state,
+          zipCode: user.zipCode,
+          businessName: user.businessName,
+          website: user.busWebsite
+        }
+      );
+
+      console.log("Registered!");
       console.log(response.data);
-  
+
       // Handle successful registration, e.g., redirect the user to the login page possibly, or to a successful registration page
     } catch (error) {
-      setError(error.response?.data?.error || 'Registration error');
-      console.error('Registration error:', error);
+      setError(error.response?.data?.error || "Registration error");
+      console.error("Registration error:", error);
     }
   };
 
@@ -37,6 +48,26 @@ function GeneralAccount({ user, setUser }) {
         </h3>
         <form className="px-md-2">
           {/* Other form fields will be needed like password confirmation */}
+          <div className="mb-4">
+            <input
+              type="firstName"
+              id="firstName"
+              className="form-control form-control-lg inputField"
+              onChange={(e) => handleChange("firstName", e.target.value)}
+              placeholder="First Name"
+            />
+          </div>
+
+          <div className="mb-4">
+            <input
+              type="lastName"
+              id="lastName"
+              className="form-control form-control-lg inputField"
+              onChange={(e) => handleChange("lastName", e.target.value)}
+              placeholder="Last Name"
+            />
+          </div>
+
           <div className="mb-4">
             <input
               type="email"
@@ -54,6 +85,81 @@ function GeneralAccount({ user, setUser }) {
               className="form-control form-control-lg inputField"
               onChange={(e) => handleChange("password", e.target.value)}
               placeholder="Password"
+            />
+          </div>
+
+          {accountType === "Venue" && (
+            <>
+              <div className="mb-4">
+                <input
+                  type="address"
+                  id="address"
+                  className="form-control form-control-lg inputField"
+                  onChange={(e) => handleChange("address", e.target.value)}
+                  placeholder="Street Address"
+                />
+              </div>
+
+              <div className="mb-4">
+                <input
+                  type="city"
+                  id="city"
+                  className="form-control form-control-lg inputField"
+                  onChange={(e) => handleChange("city", e.target.value)}
+                  placeholder="City"
+                />
+              </div>
+
+              <div className="mb-4">
+                <input
+                  type="state"
+                  id="state"
+                  className="form-control form-control-lg inputField"
+                  onChange={(e) => handleChange("state", e.target.value)}
+                  placeholder="State"
+                />
+              </div>
+
+              <div className="mb-4">
+                <input
+                  type="zipCode"
+                  id="zipCode"
+                  className="form-control form-control-lg inputField"
+                  onChange={(e) => handleChange("zipCode", e.target.value)}
+                  placeholder="Zip Code"
+                />
+              </div>
+
+              <div className="mb-4">
+                <input
+                  type="businessName"
+                  id="businessName"
+                  className="form-control form-control-lg inputField"
+                  onChange={(e) => handleChange("businessName", e.target.value)}
+                  placeholder="Business Name"
+                />
+              </div>
+            </>
+          )}
+
+          {accountType === "Artist" && (
+            <div className="mb-4">
+              <input
+                type="businessName"
+                id="businessName"
+                className="form-control form-control-lg inputField"
+                onChange={(e) => handleChange("businessName", e.target.value)}
+                placeholder="Artist / Band Name"
+              />
+            </div>
+          )}
+          <div className="mb-4">
+            <input
+              type="busWebsite"
+              id="busWebsite"
+              className="form-control form-control-lg inputField"
+              onChange={(e) => handleChange("busWebsite", e.target.value)}
+              placeholder="Website (Optional)"
             />
           </div>
 

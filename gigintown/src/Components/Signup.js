@@ -1,54 +1,9 @@
-import { useState } from "react";
 import Nav from "./Nav";
 import GigInTownLogo from "../imgs/gigintown test3.png";
 import GeneralAccount from "./GeneralAccount";
 import { Link } from "react-router-dom";
 
 function Signup({ user, setUser, accountType, setAccountType }) {
-  const [formData, setFormData] = useState({
-    artistName: "",
-    firstName: "",
-    lastName: "",
-    phoneNumber: "",
-    email: "",
-  });
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    try {
-      const response = await fetch("http://localhost:8000/api/api/send-email", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
-
-      if (response.ok) {
-        console.log("Email sent successfully.");
-        setFormData({
-          artistName: "",
-          firstName: "",
-          lastName: "",
-          phoneNumber: "",
-          email: "",
-        });
-      } else {
-        console.error("Email sending failed.");
-      }
-    } catch (error) {
-      console.error("Error sending email:", error);
-    }
-  };
-
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
-  };
 
   const handleDropdownChange = (event) => {
     const selectedValue = event.target.value;
@@ -104,65 +59,9 @@ function Signup({ user, setUser, accountType, setAccountType }) {
                     </select>
                   </div>
                 </div>
-                {(accountType === "Artist" ||
-                  accountType === "Venue" ||
-                  accountType === "Promoter") && (
+                {accountType !== "" && (
                   <>
-                    <div>
-                      {accountType} accounts require additional verification.
-                      This is to keep any user from creating accounts for your
-                      business or brand.
-                    </div>
-                    <p>
-                      Please submit the form below. For questions regarding how
-                      the verification process works and how long it takes,
-                      please use this link.
-                    </p>
-                    <p>
-                      For more information on the different types of accounts,
-                      see the <Link to="/faq">FAQ</Link>
-                    </p>
-                    <form onSubmit={handleSubmit}>
-                      <input
-                        type="text"
-                        name="artistName"
-                        placeholder={`${accountType} Name (Subject)`}
-                        value={formData.artistName}
-                        onChange={handleInputChange}
-                      />
-                      <input
-                        type="text"
-                        name="firstName"
-                        placeholder="First Name"
-                        value={formData.firstName}
-                        onChange={handleInputChange}
-                      />
-                      <input
-                        type="text"
-                        name="lastName"
-                        placeholder="Last Name"
-                        value={formData.lastName}
-                        onChange={handleInputChange}
-                      />
-                      <input
-                        type="text"
-                        name="phoneNumber"
-                        placeholder="Phone Number"
-                        value={formData.phoneNumber}
-                        onChange={handleInputChange}
-                      />
-                      <input
-                        type="email"
-                        name="email"
-                        placeholder="Email Address"
-                        value={formData.email}
-                        onChange={handleInputChange}
-                      />
-                      <button type="submit">Send Email</button>
-                    </form>
-                  </>
-                )}
-                {accountType === "General" && (
+                  {accountType === "General" &&
                   <>
                     <div>
                       Note: General Accounts are unable to Create Events. If you
@@ -173,6 +72,8 @@ function Signup({ user, setUser, accountType, setAccountType }) {
                       For more information on the different types of accounts,
                       see the <Link to="/faq">FAQ</Link>
                     </div>
+                    </>
+                  }
                     <GeneralAccount
                       user={user}
                       setUser={setUser}
