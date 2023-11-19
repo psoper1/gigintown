@@ -2,12 +2,11 @@ import { NavLink, useNavigate } from "react-router-dom";
 import gigIcon from "../imgs/gigintown-just-icon.png";
 
 function Nav({ loggedInUser }) {
-
   const navigate = useNavigate();
-  
+
   const handleLogout = () => {
     localStorage.removeItem("authToken");
-    localStorage.removeItem("loggedInUser")
+    localStorage.removeItem("loggedInUser");
     navigate("/");
     window.location.reload();
   };
@@ -35,25 +34,18 @@ function Nav({ loggedInUser }) {
             id="navbarNav"
           >
             <ul className="navbar-nav">
-              {loggedInUser && (
-                <>
-                  <li className="nav-item text-white">
-                    Hello, {loggedInUser.first_name}
-                  </li>
-                </>
-              )}
               <li className="nav-item">
                 <NavLink to="/faq" className="nav-link text-white">
                   FAQ
                 </NavLink>
               </li>
-              {loggedInUser && loggedInUser.account_type !== 'General' &&
+              {loggedInUser && loggedInUser.account_type !== "General" && (
                 <li className="nav-item">
                   <NavLink to="/event-form" className="nav-link text-white">
                     Create Event
                   </NavLink>
                 </li>
-              }
+              )}
               {!loggedInUser && (
                 <>
                   <li className="nav-item">
@@ -68,16 +60,23 @@ function Nav({ loggedInUser }) {
                   </li>
                 </>
               )}
-              {loggedInUser && loggedInUser.firstName !== '' &&
-                  <li className="nav-item">
-                    <NavLink to="/user-profile" className="nav-link text-white">My Profile</NavLink>
+              {loggedInUser && loggedInUser.firstName !== "" && (
+                <>
+                  <li className="nav-item text-white">
+                    <NavLink to="/user-profile" className="nav-link text-white">
+                      {loggedInUser.first_name}
+                    </NavLink>
                   </li>
-              }
-              {loggedInUser && loggedInUser.firstName !== '' &&
-              <li className="nav-item">
-              <button className="nav-link text-white" onClick={handleLogout}>Log Out</button>
-              </li>
-              }
+                  <li className="nav-item">
+                    <button
+                      className="nav-link text-white"
+                      onClick={handleLogout}
+                    >
+                      Log Out
+                    </button>
+                  </li>
+                </>
+              )}
             </ul>
           </div>
         </div>

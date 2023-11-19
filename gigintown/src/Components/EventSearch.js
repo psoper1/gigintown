@@ -20,7 +20,9 @@ function EventSearch({ onSearch }) {
       <select value={state} onChange={(e) => setState(e.target.value)}>
         <StateOptions />
       </select>
-      <button onClick={handleSearch} disabled={!city && !state}>Search</button>
+      <button onClick={handleSearch} disabled={!city && !state}>
+        Search
+      </button>
     </div>
   );
 }
