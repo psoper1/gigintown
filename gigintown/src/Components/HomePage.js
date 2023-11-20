@@ -30,6 +30,7 @@ function HomePage({ user, setSelectedEvent, loggedInUser, setLoggedInUser }) {
       <div className="logo-container">
         <Logo />
       </div>
+      {/* <EventSearch onSearch={handleSearch} /> */}
       <EventSearch onSearch={handleSearch} />
       <div className="container results-container">
         <SearchResults searchResults={searchResults} setSearchResults={setSearchResults} setSelectedEvent={setSelectedEvent} loggedInUser={loggedInUser} setLoggedInUser={setLoggedInUser} />

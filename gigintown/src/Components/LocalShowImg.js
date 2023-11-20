@@ -1,4 +1,4 @@
-import LocalShow from '../imgs/local-show.jpeg';
+import LocalShow from '../imgs/crowd.jpg';
 
 function LocalShowImg() {
     return (

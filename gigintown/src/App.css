@@ -7,7 +7,7 @@ body {
   justify-content: center;
   align-items: center;
   height: 45vh;
-  background-image: url("./imgs/local-show.jpeg");
+  background-image: url("./imgs/crowd.jpg");
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
@@ -229,3 +229,31 @@ body {
 .eventForm2{margin-top: 0px !important;margin-bottom: 50px;}
 .navbar-toggler{background-color: white !important;}
 .navbar-toggler:focus{box-shadow: none !important;}
+
+.dropdown-state {
+  display: flex;
+}
+
+.select-state-box {
+  width: auto!important;
+}
+
+.input-search:hover, .search-button:hover, .select-state-box:hover {
+  box-shadow: 0 5px 15px rgba(92, 149, 182, 0.4);
+}
+
+.search-button, .input-search, .select-state-box {
+  height: 45px;
+}
+
+.search-button {
+  background-color: #498cb9!important;
+}
+.search-button:disabled {
+  background-color: #7e7e7e!important;
+}
+
+.search-button:hover {
+background-color: #1a72ac!important;
+transform: scale(0.99);
+}

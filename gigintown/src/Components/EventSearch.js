@@ -10,17 +10,27 @@ function EventSearch({ onSearch }) {
   };
 
   return (
-    <div className="text-center">
+    <div className="dropdown-state d-flex justify-content-center">
       <input
+        className="input-search"
         type="text"
         placeholder="Enter City"
         value={city}
         onChange={(e) => setCity(e.target.value)}
       />
-      <select value={state} onChange={(e) => setState(e.target.value)}>
+      <select
+        className="form-select form-select-sm mb-3 select-state-box"
+        aria-label="Large select example"
+        value={state}
+        onChange={(e) => setState(e.target.value)}
+      >
         <StateOptions />
       </select>
-      <button onClick={handleSearch} disabled={!city && !state}>
+      <button
+        className="btn btn-secondary h-30 search-button"
+        onClick={handleSearch}
+        disabled={!city && !state}
+      >
         Search
       </button>
     </div>
